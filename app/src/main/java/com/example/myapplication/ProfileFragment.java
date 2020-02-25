@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.github.abdularis.civ.AvatarImageView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
@@ -32,15 +33,17 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileFragment extends Fragment {
 
-    @BindView(R.id.recycler_view)
+    @BindView(R.id.recycler_view_profile)
     RecyclerView recyclerView;
-    @BindView(R.id.progress_bar)
+    @BindView(R.id.progress_bar_profile)
     ProgressBar progressBar;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseAuth mAuth;
     TextView name;
     CollectionReference collectionReference;
+
+    AvatarImageView avatarImageView;
 
     String uid;
 
@@ -52,12 +55,14 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_profile,container,false);
         name = v.findViewById(R.id.name);
+        avatarImageView = v.findViewById(R.id.profile);
+        mAuth = FirebaseAuth.getInstance();
+        uid = mAuth.getUid();
+
+        ButterKnife.bind(this, v);
 
         init();
         getBookList();
-
-        mAuth = FirebaseAuth.getInstance();
-        uid = mAuth.getUid();
 
         db.collection("user").document(uid)
                 .get()
@@ -67,7 +72,9 @@ public class ProfileFragment extends Fragment {
                         if (task.isSuccessful()) {
                             DocumentSnapshot document = task.getResult();
                             if (document.exists()) {
-                                name.setText("Hi "+document.get("name").toString()+"!");
+                                String username = document.get("name").toString();
+                                name.setText("Hi "+username+"!");
+                                avatarImageView.setText(username.substring(0,1).toUpperCase());
                             } else {
                             }
                         } else {

@@ -5,23 +5,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient">
+
     <RelativeLayout
         android:id="@+id/a"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="wrap_content"
         android:background="#ffff">
 
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <Space
+            android:id="@+id/space"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_centerHorizontal="true" />
+
+        <com.github.abdularis.civ.AvatarImageView
+            android:layout_below="@+id/space"
             android:id="@+id/profile"
-
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_centerInParent="true"
-
-
-            android:src="@drawable/fui_idp_button_background_anonymous"
-            tools:src="@android:drawable/sym_def_app_icon" />
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            app:avatarBackgroundColor="#FD77AE"
+            app:text=" "
+            app:textColor="#3d3d01"
+            app:textSize="40dp" />
 
         <TextView
             android:id="@+id/name"
@@ -31,12 +38,20 @@
             android:layout_centerHorizontal="true"
             android:fontFamily="sans-serif-condensed"
             android:textColor="#000000"
-            android:text="HI #user"
             android:textSize="30dp" />
+
+        <Space
+            android:id="@+id/space2"
+            android:layout_width="match_parent"
+            android:layout_height="27dp"
+            android:layout_below="@+id/name"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="-7dp" />
 
     </RelativeLayout>
 
     <LinearLayout android:id="@+id/b"
+        android:gravity="center_horizontal"
         android:orientation="vertical"
         android:layout_below="@+id/a"
         android:layout_width="match_parent"
@@ -53,15 +68,15 @@
             android:textFontWeight="@android:integer/config_mediumAnimTime"
             android:textSize="35dp"/>
         <ProgressBar
-            android:id="@+id/progress_bar"
+            android:id="@+id/progress_bar_profile"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"/>
+            android:layout_height="wrap_content" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view"
+            android:id="@+id/recycler_view_profile"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content"
+            android:divider="#00000000"/>
 
 
     </LinearLayout>

@@ -126,5 +126,4 @@ public class BookListActivity extends AppCompatActivity {
         super.onStop();
         adapter.stopListening();
     }
-
 }
